@@ -1,4 +1,5 @@
-import { Table, Model, Column } from "sequelize-typescript";
+import { Table, Model, Column, HasMany, DataType } from "sequelize-typescript";
+import { WorkPositionEntity } from "src/work-position/work-position.entity";
 
 @Table
 export class UserEntity extends Model<UserEntity> {
@@ -38,5 +39,16 @@ export class UserEntity extends Model<UserEntity> {
 
   @Column
   state: string;
+
+  @Column
+  codeGenerated: string;
+
+  @Column({
+    type: DataType.DATE
+  })
+  expirationTime: Date;
+
+  @HasMany(() => WorkPositionEntity, "userId")
+  workPositions: WorkPositionEntity[];
   
 }

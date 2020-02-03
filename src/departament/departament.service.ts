@@ -6,7 +6,7 @@ import { CreateDepartamentDto } from './dto/departament-dto';
 @Injectable()
 export class DepartamentService {
     constructor(
-        @Inject('DEPARTAMENTS_REPOSITORY') private readonly departamentsRepository: typeof DepartamentEntity,
+        @Inject('DEPARTAMENT_REPOSITORY') private readonly departamentRepository: typeof DepartamentEntity,
     ) { }
 
     create(createPlaceDto: CreateDepartamentDto): Promise<DepartamentEntity> {
@@ -18,7 +18,7 @@ export class DepartamentService {
     }
 
     async findAll(placeId: number): Promise<DepartamentEntity[]> {
-        return this.departamentsRepository.findAll<DepartamentEntity>({
+        return this.departamentRepository.findAll<DepartamentEntity>({
             where: {
                 placeId: placeId
             }

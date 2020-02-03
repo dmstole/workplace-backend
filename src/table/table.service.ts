@@ -6,7 +6,7 @@ import { CreateTableDto } from './dto/table-dto';
 @Injectable()
 export class TableService {
     constructor(
-        @Inject('TABLES_REPOSITORY') private readonly tablesRepository: typeof TableEntity,
+        @Inject('TABLE_REPOSITORY') private readonly tablesRepository: typeof TableEntity,
     ) { }
 
     create(createPlaceDto: CreateTableDto): Promise<TableEntity> {

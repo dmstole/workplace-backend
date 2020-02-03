@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
 import { DepartamentService } from './departament.service';
-import { departamentsProviders } from './departament.provider';
+import { departamentProviders } from './departament.provider';
 import { DepartamentController } from './departament.controller';
 
 @Module({
-    providers: [DepartamentService, ...departamentsProviders],
+    providers: [DepartamentService, ...departamentProviders],
     controllers: [DepartamentController],
     exports: [DepartamentService],
 })

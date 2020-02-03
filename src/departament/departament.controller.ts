@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Param, UseGuards } from '@nestjs/common';
+
 import { DepartamentEntity } from './departament.entity';
-import { CreateDepartamentDto } from './dto/departament-dto';
 import { DepartamentService } from './departament.service';
+import { CreateDepartamentDto } from './dto/departament-dto';
 
 @Controller('')
 export class DepartamentController {
     constructor(private readonly departamentService: DepartamentService) { }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('departaments')
     async create(@Body() createDepartamentDto: CreateDepartamentDto) {
         try {
@@ -15,14 +18,17 @@ export class DepartamentController {
                 title: "Departamento adicionado com sucesso.",
             });
         } catch (error) {
-            console.log(error);
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get("place/:place/departaments")
     async findAll(@Param() params: { place: number }): Promise<DepartamentEntity[]> {
-
-        return this.departamentService.findAll(params.place);
+        try {
+            return this.departamentService.findAll(params.place);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 }

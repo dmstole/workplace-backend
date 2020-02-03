@@ -1,14 +1,15 @@
-import { Controller, Get, Request, Post, UseGuards, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UsersService } from './users.service';
-import { CreateUserAdressDto } from './dto/user-dto';
+import { Controller, Get, Request, Post, UseGuards, Body, HttpException, HttpStatus } from '@nestjs/common';
+
+import { UserService } from './user.service';
+import { CreateUserAddressDto } from './dto/user-dto';
 
 @Controller("users")
-export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+export class UserController {
+  constructor(private readonly usersService: UserService) { }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserAdressDto) {
+  async create(@Body() createUserDto: CreateUserAddressDto) {
     try {
       await this.usersService.create(createUserDto);
       return ({

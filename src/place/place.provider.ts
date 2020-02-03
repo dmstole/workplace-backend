@@ -1,8 +1,8 @@
 import { PlaceEntity } from './place.entity';
 
-export const placesProviders = [
+export const placeProviders = [
   {
-    provide: 'PLACES_REPOSITORY',
+    provide: 'PLACE_REPOSITORY',
     useValue: PlaceEntity,
   },
 ];

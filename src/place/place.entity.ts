@@ -1,5 +1,6 @@
 import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
 import { DepartamentEntity } from "src/departament/departament.entity";
+import { WorkPositionEntity } from "src/work-position/work-position.entity";
 
 @Table
 export class PlaceEntity extends Model<PlaceEntity> {
@@ -64,7 +65,10 @@ export class PlaceEntity extends Model<PlaceEntity> {
   @Column
   workingDays: string;
 
-  @HasMany(() => DepartamentEntity, "placeId")
+  @HasMany(() => DepartamentEntity)
   departaments: DepartamentEntity[];
+
+  @HasMany(() => WorkPositionEntity)
+  workPositions: WorkPositionEntity[];
 
 }

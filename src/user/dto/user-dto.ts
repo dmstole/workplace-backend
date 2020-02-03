@@ -8,4 +8,4 @@ export interface CreateUserDto {
   password: string;
 }
 
-export type CreateUserAdressDto = CreateUserDto & CreateAddressDto;
+export type CreateUserAddressDto = CreateUserDto & CreateAddressDto;

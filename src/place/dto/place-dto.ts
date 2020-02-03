@@ -1,4 +1,4 @@
-import { CreateAddressDto } from "src/address/dto/address.dto";
+import { CreateAddressDto as CreateAddresDto } from "src/address/dto/address.dto";
 
 export interface CreatePlaceDto {
   name: string;
@@ -9,4 +9,4 @@ export interface CreatePlaceDto {
   workingDays: string;
 }
 
-export type CreatePlaceAddressDto = CreatePlaceDto & CreateAddressDto; 
+export type CreatePlaceAddresDto = CreatePlaceDto & CreateAddresDto; 

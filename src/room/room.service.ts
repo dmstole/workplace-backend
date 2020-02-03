@@ -6,7 +6,7 @@ import { CreateRoomDto } from './dto/room-dto';
 @Injectable()
 export class RoomService {
     constructor(
-        @Inject('ROOMS_REPOSITORY') private readonly roomsRepository: typeof RoomEntity,
+        @Inject('ROOM_REPOSITORY') private readonly roomsRepository: typeof RoomEntity,
     ) { }
 
     create(createPlaceDto: CreateRoomDto): Promise<RoomEntity> {

@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Param, UseGuards } from '@nestjs/common';
+
 import { TableEntity } from './table.entity';
 import { CreateTableDto } from './dto/table-dto';
 import { TableService } from './table.service';
@@ -7,6 +9,7 @@ import { TableService } from './table.service';
 export class TableController {
     constructor(private readonly tableService: TableService) { }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('tables')
     async create(@Body() createTableDto: CreateTableDto) {
         try {
@@ -20,8 +23,15 @@ export class TableController {
         }
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get("room/:room/tables")
     async findAll(@Param() params: { room: number }): Promise<TableEntity[]> {
-        return this.tableService.findAll(params.room);
+        try {
+            return this.tableService.findAll(params.room);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
+        
     }
 }

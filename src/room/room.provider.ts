@@ -2,7 +2,7 @@ import { RoomEntity } from './room.entity';
 
 export const roomsProviders = [
     {
-        provide: 'ROOMS_REPOSITORY',
+        provide: 'ROOM_REPOSITORY',
         useValue: RoomEntity,
     },
 ];

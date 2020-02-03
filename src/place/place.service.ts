@@ -1,14 +1,17 @@
+import { Op } from 'sequelize';
 import { Injectable, Inject } from '@nestjs/common';
+
 import { PlaceEntity } from './place.entity';
-import { CreatePlaceAddressDto } from './dto/place-dto';
+import { CreatePlaceAddresDto } from './dto/place-dto';
 
 @Injectable()
-export class PlacesService {
+export class PlaceService {
     constructor(
-        @Inject('PLACES_REPOSITORY') private readonly placesRepository: typeof PlaceEntity,
+        @Inject('PLACE_REPOSITORY') private readonly placeRepository: typeof PlaceEntity,
     ) { }
 
-    create(createPlaceDto: CreatePlaceAddressDto): Promise<PlaceEntity> {
+    create(createPlaceDto: CreatePlaceAddresDto): Promise<PlaceEntity> {
+
         const place = new PlaceEntity();
         place.name = createPlaceDto.name;
         place.email = createPlaceDto.email;
@@ -32,7 +35,25 @@ export class PlacesService {
         return place.save();
     }
 
-    async findAll(): Promise<PlaceEntity[]> {
-        return this.placesRepository.findAll<PlaceEntity>();
+    async findAll({ key }: { key: string }): Promise<PlaceEntity[]> {
+
+        const where = !!key
+            ? {
+                [Op.or]: [
+                    {
+                        name: {
+                            [Op.like]: `%${key}%`
+                        }
+                    },
+                    {
+                        city: {
+                            [Op.like]: `%${key}%`
+                        }
+                    }
+                ]
+            }
+            : null;
+
+        return this.placeRepository.findAll<PlaceEntity>({ where });
     }
 }

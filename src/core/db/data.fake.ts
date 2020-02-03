@@ -1,4 +1,4 @@
-import { PlaceEntity } from "src/places/place.entity"
+import { PlaceEntity } from "src/place/place.entity"
 import { DepartamentEntity } from "src/departament/departament.entity";
 import { RoomEntity } from "src/room/room.entity";
 import { TableEntity } from "src/table/table.entity";
@@ -44,6 +44,7 @@ async function createRoom(departmentId: number) {
 async function createTable(roomId: number) {
     const table = new TableEntity();
     table.name = "Mesa de Reunião";
+    table.totalPosition = 10;
     table.roomId = roomId;
     return await table.save();
 }

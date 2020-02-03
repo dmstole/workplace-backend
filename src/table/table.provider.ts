@@ -2,7 +2,7 @@ import { TableEntity } from './table.entity';
 
 export const tablesProviders = [
     {
-        provide: 'TABLES_REPOSITORY',
+        provide: 'TABLE_REPOSITORY',
         useValue: TableEntity,
     },
 ];

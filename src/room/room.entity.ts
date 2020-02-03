@@ -1,5 +1,7 @@
-import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { TableEntity } from "src/table/table.entity";
+import { WorkPositionEntity } from "src/work-position/work-position.entity";
+import { DepartamentEntity } from "src/departament/departament.entity";
 
 @Table
 export class RoomEntity extends Model<RoomEntity> {
@@ -9,12 +11,19 @@ export class RoomEntity extends Model<RoomEntity> {
     })
     name: string;
 
+    @ForeignKey(() => DepartamentEntity)
     @Column({
         allowNull: false,
         type: DataType.INTEGER,
     })
     departamentId: number;
 
-    @HasMany(() => TableEntity, "roomId")
+    @BelongsTo(() => DepartamentEntity)
+    departament: DepartamentEntity;
+
+    @HasMany(() => TableEntity)
     tables: TableEntity[];
+
+    @HasMany(() => WorkPositionEntity)
+    workPositions: WorkPositionEntity[];
 }
